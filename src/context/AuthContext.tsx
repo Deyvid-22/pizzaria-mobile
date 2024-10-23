@@ -72,7 +72,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         email,
         password,
       });
-      // console.log(response.data);
+      console.log(response.data);
 
       const { id, name, token } = response.data;
 

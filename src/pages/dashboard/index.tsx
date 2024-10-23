@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -14,6 +15,8 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { StackParamsList } from "../../routes/app.routes";
+
+import { api } from "../../services/api";
 
 export default function Dashboard() {
   const navigation =
@@ -26,10 +29,19 @@ export default function Dashboard() {
     if (number === "") {
       return;
     }
+
+    const response = await api.post("/order", {
+      table: Number(number),
+    });
+
+    console.log(response.data);
+
     navigation.navigate("Order", {
       number: number,
-      order_id: "62f61370-05c6-4296-9de6-475658ba435f",
+      order_id: response.data.id,
     });
+
+    setNumber("");
   }
 
   return (
